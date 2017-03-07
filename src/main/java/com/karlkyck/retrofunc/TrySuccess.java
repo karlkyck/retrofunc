@@ -1,10 +1,10 @@
-package com.karlkyck.retrofunc.common;
+package com.karlkyck.retrofunc;
 
 /**
  * Copyright WithWoof 2017
  * Created by karlkyck on 16/01/17.
  */
-public final class TrySuccess<T> extends Try<T> {
+final class TrySuccess<T> extends Try<T> {
 
 	private final T value;
 
@@ -30,9 +30,9 @@ public final class TrySuccess<T> extends Try<T> {
 	@Override
 	public <R> Try<R> map(final CheckedFunction<T, R> func) {
 		try {
-			return Try.success(func.apply(value));
+			return success(func.apply(value));
 		} catch (final Throwable t) {
-			return Try.failure(t);
+			return failure(t);
 		}
 	}
 
@@ -41,7 +41,7 @@ public final class TrySuccess<T> extends Try<T> {
 		try {
 			return func.apply(value);
 		} catch (final Throwable t) {
-			return Try.failure(t);
+			return failure(t);
 		}
 	}
 

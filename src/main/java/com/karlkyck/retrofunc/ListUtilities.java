@@ -1,4 +1,4 @@
-package com.karlkyck.retrofunc.common;
+package com.karlkyck.retrofunc;
 
 import java.util.List;
 

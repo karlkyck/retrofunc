@@ -1,10 +1,10 @@
-package com.karlkyck.retrofunc.common;
+package com.karlkyck.retrofunc;
 
 /**
  * Copyright WithWoof 2017
  * Created by karlkyck on 16/01/17.
  */
-public final class TryFailure<T> extends Try<T> {
+final class TryFailure<T> extends Try<T> {
 
 	private final Throwable throwable;
 

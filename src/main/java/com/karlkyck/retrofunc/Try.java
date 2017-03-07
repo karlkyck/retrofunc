@@ -1,4 +1,4 @@
-package com.karlkyck.retrofunc.common;
+package com.karlkyck.retrofunc;
 
 /**
  * Copyright WithWoof 2017
