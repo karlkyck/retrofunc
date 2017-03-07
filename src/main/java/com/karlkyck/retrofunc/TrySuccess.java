@@ -46,6 +46,21 @@ final class TrySuccess<T> extends Try<T> {
 	}
 
 	@Override
+	public Try<T> andThen(final Consumer<T> consumer) {
+		return andThenTry(consumer::accept);
+	}
+
+	@Override
+	public Try<T> andThenTry(final CheckedConsumer<T> consumer) {
+		try {
+			consumer.accept(value);
+			return this;
+		} catch (final Throwable t) {
+			return Try.failure(t);
+		}
+	}
+
+	@Override
 	public Try<T> recover(final CheckedFunction<? super Throwable, T> func) {
 		return this;
 	}

@@ -28,19 +28,29 @@ final class TryFailure<T> extends Try<T> {
 	}
 
 	@Override
-	public <R> Try<R> map(final CheckedFunction<T, R> func) {
+	public <R> Try<R> map(final CheckedFunction<T, R> function) {
 		return Try.failure(throwable);
 	}
 
 	@Override
-	public <R> Try<R> flatMap(final CheckedFunction<T, Try<R>> func) {
+	public <R> Try<R> flatMap(final CheckedFunction<T, Try<R>> function) {
 		return Try.failure(throwable);
 	}
 
 	@Override
-	public Try<T> recover(final CheckedFunction<? super Throwable, T> func) {
+	public Try<T> andThen(final Consumer<T> consumer) {
+		return this;
+	}
+
+	@Override
+	public Try<T> andThenTry(final CheckedConsumer<T> consumer) {
+		return this;
+	}
+
+	@Override
+	public Try<T> recover(final CheckedFunction<? super Throwable, T> function) {
 		try {
-			return Try.success(func.apply(throwable));
+			return Try.success(function.apply(throwable));
 		} catch (final Throwable throwable) {
 			return Try.failure(throwable);
 		}

@@ -12,11 +12,15 @@ public abstract class Try<T> {
 
 	public abstract T get();
 
-	public abstract <R> Try<R> map(final CheckedFunction<T, R> f);
+	public abstract <R> Try<R> map(CheckedFunction<T, R> function);
 
-	public abstract <R> Try<R> flatMap(final CheckedFunction<T, Try<R>> f);
+	public abstract <R> Try<R> flatMap(CheckedFunction<T, Try<R>> function);
 
-	public abstract Try<T> recover(final CheckedFunction<? super Throwable, T> f);
+	public abstract Try<T> andThen(Consumer<T> consumer);
+
+	public abstract Try<T> andThenTry(CheckedConsumer<T> consumer);
+
+	public abstract Try<T> recover(CheckedFunction<? super Throwable, T> function);
 
 	public static <T> Try<T> of(final CheckedSupplier<T> supplier) {
 		try {
@@ -32,6 +36,11 @@ public abstract class Try<T> {
 
 	public static <T> Try<T> failure(final Throwable t) {
 		return new TryFailure<>(t);
+	}
+
+	@FunctionalInterface
+	public interface CheckedConsumer<T> {
+		void accept(T value) throws Throwable;
 	}
 
 	@FunctionalInterface

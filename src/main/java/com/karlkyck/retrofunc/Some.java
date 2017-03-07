@@ -33,6 +33,16 @@ final class Some<T> extends Option<T> {
 	}
 
 	@Override
+	public Option<T> orElse(final Option<T> other) {
+		return this;
+	}
+
+	@Override
+	public Option<T> orElse(final Supplier<Option<T>> supplier) {
+		return this;
+	}
+
+	@Override
 	public <R> Option<R> map(final Function<T, R> f) {
 		return of(f.apply(value));
 	}
@@ -40,5 +50,11 @@ final class Some<T> extends Option<T> {
 	@Override
 	public <R> Option<R> flatMap(final Function<T, Option<R>> f) {
 		return f.apply(value);
+	}
+
+	@Override
+	public Option<T> peek(final Consumer<T> consumer) {
+		consumer.accept(value);
+		return this;
 	}
 }
