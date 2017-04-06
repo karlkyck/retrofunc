@@ -50,4 +50,10 @@ final class None<T> extends Option<T> {
 	public Option<T> peek(final Consumer<T> consumer) {
 		return this;
 	}
+
+	@Override
+	public Option<T> ifEmpty(final Runnable runnable) {
+		runnable.run();
+		return this;
+	}
 }

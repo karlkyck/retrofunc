@@ -24,6 +24,8 @@ public abstract class Option<T> {
 
 	public abstract Option<T> peek(Consumer<T> consumer);
 
+	public abstract Option<T> ifEmpty(Runnable runnable);
+
 	public static <T> Option<T> of(final T value) {
 		if (value == null)
 			return new None<>();

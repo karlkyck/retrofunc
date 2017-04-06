@@ -57,4 +57,9 @@ final class Some<T> extends Option<T> {
 		consumer.accept(value);
 		return this;
 	}
+
+	@Override
+	public Option<T> ifEmpty(final Runnable runnable) {
+		return this;
+	}
 }

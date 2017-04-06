@@ -24,6 +24,8 @@ final class TryFailure<T> extends Try<T> {
 
 	@Override
 	public T get() {
+		if (throwable instanceof RuntimeException)
+			throw (RuntimeException) throwable;
 		throw new IllegalStateException(throwable);
 	}
 

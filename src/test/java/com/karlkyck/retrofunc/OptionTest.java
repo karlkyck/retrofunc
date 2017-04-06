@@ -78,4 +78,19 @@ public class OptionTest {
 
 		assertThat(some.getOrElse(() -> otherValue)).isEqualTo(otherValue);
 	}
+
+	@Test
+	public void itShouldRunIfIsEmpty() {
+
+		boolean hasRun = false;
+
+		Option
+				.none()
+				.<Runnable>map(account -> () -> {
+				})
+				.getOrElse(() -> {
+					System.out.println("wooo");
+				})
+				.run();
+	}
 }
