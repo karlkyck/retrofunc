@@ -101,10 +101,9 @@ public abstract class Either<L, R> {
             return (Either<U, R>) this;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public <U> Either<L, U> map(final Function<R, U> f) {
-            return (Either<L, U>) new Right<>(f.apply(right));
+            return new Right<>(f.apply(right));
         }
     }
 }

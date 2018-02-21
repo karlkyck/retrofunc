@@ -62,9 +62,6 @@
                             <goal>process-main</goal>
                             <goal>process-test</goal>
                         </goals>
-                        <configuration>
-                            <defaultMethods>true</defaultMethods>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
