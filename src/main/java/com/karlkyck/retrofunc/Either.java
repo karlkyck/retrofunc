@@ -2,7 +2,7 @@ package com.karlkyck.retrofunc;
 
 import java.util.NoSuchElementException;
 
-public interface Either<L, R> {
+public abstract class Either<L, R> {
 
     static <L, R> Either<L, R> right(final R right) {
         return new Right<>(right);
@@ -12,20 +12,20 @@ public interface Either<L, R> {
         return new Left<>(left);
     }
 
-    L getLeft();
+    abstract L getLeft();
 
-    R get();
+    abstract R get();
 
-    boolean isLeft();
+    abstract boolean isLeft();
 
-    boolean isRight();
+    abstract boolean isRight();
 
-    <U> Either<U, R> mapLeft(final Function<L, U> f);
+    abstract <U> Either<U, R> mapLeft(final Function<L, U> f);
 
-    <U> Either<L, U> map(final Function<R, U> f);
+    abstract <U> Either<L, U> map(final Function<R, U> f);
 
 
-    class Left<L, R> implements Either<L, R> {
+    static class Left<L, R> extends Either<L, R> {
 
         private final L left;
 
@@ -67,7 +67,7 @@ public interface Either<L, R> {
 
     }
 
-    class Right<L, R> implements Either<L, R> {
+    static class Right<L, R> extends Either<L, R> {
 
         private final R right;
 
