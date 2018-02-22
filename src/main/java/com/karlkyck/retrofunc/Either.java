@@ -4,26 +4,25 @@ import java.util.NoSuchElementException;
 
 public abstract class Either<L, R> {
 
-    static <L, R> Either<L, R> right(final R right) {
+    public static <L, R> Either<L, R> right(final R right) {
         return new Right<>(right);
     }
 
-    static <L, R> Either<L, R> left(final L left) {
+    public static <L, R> Either<L, R> left(final L left) {
         return new Left<>(left);
     }
 
-    abstract L getLeft();
+    public abstract L getLeft();
 
-    abstract R get();
+    public abstract R get();
 
-    abstract boolean isLeft();
+    public abstract boolean isLeft();
 
-    abstract boolean isRight();
+    public abstract boolean isRight();
 
-    abstract <U> Either<U, R> mapLeft(final Function<L, U> f);
+    public abstract <U> Either<U, R> mapLeft(final Function<L, U> f);
 
-    abstract <U> Either<L, U> map(final Function<R, U> f);
-
+    public abstract <U> Either<L, U> map(final Function<R, U> f);
 
     static class Left<L, R> extends Either<L, R> {
 
@@ -63,8 +62,6 @@ public abstract class Either<L, R> {
         public <U> Either<L, U> map(final Function<R, U> f) {
             return (Either<L, U>) this;
         }
-
-
     }
 
     static class Right<L, R> extends Either<L, R> {
