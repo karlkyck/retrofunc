@@ -1,6 +1,7 @@
 package com.karlkyck.retrofunc;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public abstract class Either<L, R> {
 
@@ -15,6 +16,14 @@ public abstract class Either<L, R> {
     public abstract L getLeft();
 
     public abstract R get();
+
+    public R getOrElseGet(final Function<L, R> f) {
+        if (isRight()) {
+            return get();
+        } else {
+            return f.apply(getLeft());
+        }
+    }
 
     public abstract boolean isLeft();
 
@@ -62,6 +71,20 @@ public abstract class Either<L, R> {
         public <U> Either<L, U> map(final Function<R, U> f) {
             return (Either<L, U>) this;
         }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            final Left<?, ?> left1 = (Left<?, ?>) o;
+            return Objects.equals(left, left1.left);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(left);
+        }
     }
 
     static class Right<L, R> extends Either<L, R> {
@@ -101,6 +124,20 @@ public abstract class Either<L, R> {
         @Override
         public <U> Either<L, U> map(final Function<R, U> f) {
             return new Right<>(f.apply(right));
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            final Right<?, ?> right1 = (Right<?, ?>) o;
+            return Objects.equals(right, right1.right);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(right);
         }
     }
 }

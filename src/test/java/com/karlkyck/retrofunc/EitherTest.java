@@ -70,4 +70,34 @@ public class EitherTest {
         final Either<String, String> left = Either.left("Left");
         left.get();
     }
+
+    @Test
+    public void shouldEqualLeft() {
+        final Either<String, Object> either = Either.left("left");
+        Assertions.assertThat(either).isEqualTo(Either.left("left"));
+    }
+
+    @Test
+    public void shouldNotEqualLeft() {
+        final Either<String, Object> either = Either.left("left");
+        Assertions.assertThat(either).isNotEqualTo(Either.right("left"));
+    }
+
+    @Test
+    public void shouldEqualRight() {
+        final Either<String, String> either = Either.right("right");
+        Assertions.assertThat(either).isEqualTo(Either.right("right"));
+    }
+
+    @Test
+    public void shouldNotEqualRight() {
+        final Either<String, String> either = Either.right("right");
+        Assertions.assertThat(either).isNotEqualTo(Either.left("right"));
+    }
+
+    @Test
+    public void shouldOrElseGet() {
+        final Either<Throwable, String> either = Either.left(new RuntimeException());
+        Assertions.assertThat(either.getOrElseGet(e -> "works")).isEqualTo("works");
+    }
 }
